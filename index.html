@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=de-width, ial-scale=1.0" />
+    <title>Piano</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="transparent-music-notes-white-circle-with-black-music-note-1710856576227.webp"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=music_note"
+    />
+  </head>
+  <body>
+    <div class="printable">
+      <div class="head">
+        <h1><u>Your Notes</u></h1>
+      </div>
+      <div class="notes">
+        <div>
+          <span class="material-symbols-outlined"> music_note </span>
+          <text>Notes</text>
+          <span class="material-symbols-outlined"> music_note </span>
+        </div>
+      </div>
+      <div class="notesCode">
+        <table border="black" style="width: 30%; font-size: 1.15rem;">
+          <tr>
+            <th>Code</th>
+            <th>Note</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="notes-editor">
+      <div class="cross">
+        <h2>Notes</h2>
+        <i class="fa-solid fa-x"></i>
+      </div>
+      <div class="notes">
+        <textarea name="notes" id="notes" spellcheck="false"></textarea>
+      </div>
+      <div class="save-btn">
+        <button class="save">Save</button>
+      </div>
+    </div>
+    <div class="main">
+      <div class="keyboard">
+        <div class="keyboard-panel-control">
+          <div class="note-played">
+            <div class="note">Note</div>
+            <div class="noteCode">Key Code</div>
+          </div>
+          <div class="notes-played">
+            <p class="notes"></p>
+          </div>
+          <div class="controls-tools">
+            <div class="play-note de-width" title="Play">
+              <i class="fa-solid fa-play"></i>
+              <i class="fa-solid fa-pause" style="display: none; color: orangered;"></i>
+            </div>
+            <div class="reset de-width" title="Reset">
+              <i class="fas fa-undo"></i>
+            </div>
+            <div class="download-notes de-width" title="Download">
+              <i class="fa-solid fa-arrow-down-long"></i>
+            </div>
+            <div class="edit-notes de-width" title="Edit Notes">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+          </div>
+        </div>
+        <div class="key-click-indicator">
+          <div class="C2 blink"></div>
+          <div class="CSharp2-Db2 blink"></div>
+          <div class="D2 blink"></div>
+          <div class="DSharp2-Eb2 blink"></div>
+          <div class="E2 blink"></div>
+          <div class="F2 blink"></div>
+          <div class="FSharp2-Gb2 blink"></div>
+          <div class="G2 blink"></div>
+          <div class="GSharp2-Ab2 blink"></div>
+          <div class="A2 blink"></div>
+          <div class="ASharp2-Bb2 blink"></div>
+          <div class="B2 blink"></div>
+          <div class="C3 blink"></div>
+          <div class="CSharp3-Db3 blink"></div>
+          <div class="D3 blink"></div>
+          <div class="DSharp3-Eb3 blink"></div>
+          <div class="E3 blink"></div>
+          <div class="F3 blink"></div>
+          <div class="FSharp3-Gb3 blink"></div>
+          <div class="G3 blink"></div>
+          <div class="GSharp3-Ab3 blink"></div>
+          <div class="A3 blink"></div>
+          <div class="ASharp3-Bb3 blink"></div>
+          <div class="B3 blink"></div>
+          <div class="C4 blink"></div>
+          <div class="CSharp4-Db4 blink"></div>
+          <div class="D4 blink"></div>
+          <div class="DSharp4-Eb4 blink"></div>
+          <div class="E4 blink"></div>
+          <div class="F4 blink"></div>
+          <div class="FSharp4-Gb4 blink"></div>
+          <div class="G4 blink"></div>
+          <div class="GSharp4-Ab4 blink"></div>
+          <div class="A4 blink"></div>
+          <div class="ASharp4-Bb4 blink"></div>
+          <div class="B4 blink"></div>
+          <div class="C5 blink"></div>
+          <div class="CSharp5-Db5 blink"></div>
+          <div class="D5 blink"></div>
+          <div class="DSharp5-Eb5 blink"></div>
+          <div class="E5 blink"></div>
+          <div class="F5 blink"></div>
+          <div class="FSharp5-Gb5 blink"></div>
+          <div class="G5 blink"></div>
+          <div class="GSharp5-Ab5 blink"></div>
+          <div class="A5 blink"></div>
+          <div class="ASharp5-Bb5 blink"></div>
+          <div class="B5 blink"></div>
+          <div class="C6 blink"></div>
+          <div class="CSharp6-Db6 blink"></div>
+          <div class="D6 blink"></div>
+          <div class="DSharp6-Eb6 blink"></div>
+          <div class="E6 blink"></div>
+          <div class="F6 blink"></div>
+          <div class="FSharp6-Gb6 blink"></div>
+          <div class="G6 blink"></div>
+          <div class="GSharp6-Ab6 blink"></div>
+          <div class="A6 blink"></div>
+          <div class="ASharp6-Bb6 blink"></div>
+          <div class="B6 blink"></div>
+          <div class="C7 blink"></div>
+        </div>
+        <div class="keys">
+          <div class="key" type="button" id="C2"></div>
+          <div class="black-key" type="button" id="CSharp2-Db2"></div>
+          <div class="key" type="button" id="D2"></div>
+          <div class="black-key" type="button" id="DSharp2-Eb2"></div>
+          <div class="key" type="button" id="E2"></div>
+          <div class="key" type="button" id="F2"></div>
+          <div class="black-key" type="button" id="FSharp2-Gb2"></div>
+          <div class="key" type="button" id="G2"></div>
+          <div class="black-key" type="button" id="GSharp2-Ab2"></div>
+          <div class="key" type="button" id="A2"></div>
+          <div class="black-key" type="button" id="ASharp2-Bb2"></div>
+          <div class="key" type="button" id="B2"></div>
+          <div class="key" type="button" id="C3"></div>
+          <div class="black-key" type="button" id="CSharp3-Db3"></div>
+          <div class="key" type="button" id="D3"></div>
+          <div class="black-key" type="button" id="DSharp3-Eb3"></div>
+          <div class="key" type="button" id="E3"></div>
+          <div class="key" type="button" id="F3"></div>
+          <div class="black-key" type="button" id="FSharp3-Gb3"></div>
+          <div class="key" type="button" id="G3"></div>
+          <div class="black-key" type="button" id="GSharp3-Ab3"></div>
+          <div class="key" type="button" id="A3"></div>
+          <div class="black-key" type="button" id="ASharp3-Bb3"></div>
+          <div class="key" type="button" id="B3"></div>
+          <div class="key" type="button" id="C4"></div>
+          <div class="black-key" type="button" id="CSharp4-Db4"></div>
+          <div class="key" type="button" id="D4"></div>
+          <div class="black-key" type="button" id="DSharp4-Eb4"></div>
+          <div class="key" type="button" id="E4"></div>
+          <div class="key" type="button" id="F4"></div>
+          <div class="black-key" type="button" id="FSharp4-Gb4"></div>
+          <div class="key" type="button" id="G4"></div>
+          <div class="black-key" type="button" id="GSharp4-Ab4"></div>
+          <div class="key" type="button" id="A4"></div>
+          <div class="black-key" type="button" id="ASharp4-Bb4"></div>
+          <div class="key" type="button" id="B4"></div>
+          <div class="key" type="button" id="C5"></div>
+          <div class="black-key" type="button" id="CSharp5-Db5"></div>
+          <div class="key" type="button" id="D5"></div>
+          <div class="black-key" type="button" id="DSharp5-Eb5"></div>
+          <div class="key" type="button" id="E5"></div>
+          <div class="key" type="button" id="F5"></div>
+          <div class="black-key" type="button" id="FSharp5-Gb5"></div>
+          <div class="key" type="button" id="G5"></div>
+          <div class="black-key" type="button" id="GSharp5-Ab5"></div>
+          <div class="key" type="button" id="A5"></div>
+          <div class="black-key" type="button" id="ASharp5-Bb5"></div>
+          <div class="key" type="button" id="B5"></div>
+          <div class="key" type="button" id="C6"></div>
+          <div class="black-key" type="button" id="CSharp6-Db6"></div>
+          <div class="key" type="button" id="D6"></div>
+          <div class="black-key" type="button" id="DSharp6-Eb6"></div>
+          <div class="key" type="button" id="E6"></div>
+          <div class="key" type="button" id="F6"></div>
+          <div class="black-key" type="button" id="FSharp6-Gb6"></div>
+          <div class="key" type="button" id="G6"></div>
+          <div class="black-key" type="button" id="GSharp6-Ab6"></div>
+          <div class="key" type="button" id="A6"></div>
+          <div class="black-key" type="button" id="ASharp6-Bb6"></div>
+          <div class="key" type="button" id="B6"></div>
+          <div class="key" type="button" id="C7"></div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

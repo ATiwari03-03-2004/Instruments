@@ -1,0 +1,618 @@
+* {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.printable {
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background-color: white;
+  padding: 1rem;
+  overflow-y: auto;
+  display: none;
+}
+
+.printable .head {
+  margin: 1rem;
+}
+
+.printable .notes {
+  margin: 1rem;
+}
+
+.printable .notesCode {
+  margin: 1rem;
+}
+
+.printable text {
+  font-size: 1.15rem;
+  font-weight: 550;
+}
+
+.notes-editor {
+  height: 60%;
+  width: 50%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 1;
+  background-color: rgb(38, 38, 38);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  display: none;
+}
+
+.notes-editor .cross {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notes-editor .cross h2 {
+  color: white;
+  margin: 0.5rem;
+  margin-left: 1rem;
+}
+
+.notes-editor .cross i {
+  margin: 0.5rem;
+  color: orangered;
+  height: 1rem;
+  width: 1rem;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: background-color 0.4s ease-in 0s;
+}
+
+.notes-editor .notes {
+  width: 100%;
+  height: 78%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notes-editor .notes textarea {
+  height: 92%;
+  width: 94%;
+  border: 1px solid orangered;
+  resize: none;
+  overflow-y: scroll;
+  background-color: rgb(51, 51, 51);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: gray;
+  font-size: 1.1rem;
+  font-weight: 550;
+}
+
+.notes-editor .save-btn {
+  padding-left: 0.5rem;
+  width: 100%;
+  height: 12%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.notes-editor .save-btn button {
+  height: 2rem;
+  width: 5.6rem;
+  border-radius: 1rem;
+  background-color: inherit;
+  border: 2px solid orangered;
+  color: orangered;
+  font-size: 1.14rem;
+}
+
+.notes-editor .save-btn button:hover {
+  background-color: orangered;
+  color: black;
+}
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  background-color: #000991;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .keyboard {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(30, 30, 30) 10%,
+    rgb(15, 15, 15),
+    black
+  );
+  width: 100%;
+  height: 55%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  border-radius: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.main .keyboard .keyboard-panel-control {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .keyboard .keyboard-panel-control .note-played {
+  height: 60%;
+  width: 10%;
+  background-image: linear-gradient(
+    to bottom,
+    black,
+    rgb(45, 40, 40) 2%,
+    black
+  );
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-right: 1px solid rgba(128, 128, 128, 0.5);
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .keyboard .keyboard-panel-control .note-played .note {
+  color: orangered;
+  font-size: 2.8rem;
+  font-weight: 550;
+  height: 50%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.main .keyboard .keyboard-panel-control .note-played .noteCode {
+  color: orangered;
+  font-size: 1.5rem;
+  font-weight: 550;
+  height: 50%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid gray;
+}
+
+.main .keyboard .keyboard-panel-control .notes-played {
+  height: 60%;
+  width: 50%;
+  background-image: linear-gradient(
+    to bottom,
+    black,
+    rgb(45, 40, 40) 2%,
+    black
+  );
+  padding: 0.2rem;
+  overflow-y: scroll;
+  padding-left: 0.5rem;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0px;
+}
+
+.main .keyboard .keyboard-panel-control .notes-played p {
+  text-wrap: wrap;
+  color: beige;
+  font-size: 1.15rem;
+}
+
+.main .keyboard .keyboard-panel-control .controls-tools {
+  height: 60%;
+  width: 10%;
+  background-image: linear-gradient(
+    to bottom,
+    black,
+    rgb(45, 40, 40) 2%,
+    black
+  );
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-left: 1px solid rgba(128, 128, 128, 0.5);
+  padding: 0.2rem;
+}
+
+.main .keyboard .keyboard-panel-control .controls-tools .de-width {
+  height: 42%;
+  width: 42%;
+  margin: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  cursor: pointer;
+}
+
+.main .keyboard .keyboard-panel-control .controls-tools .de-width:hover {
+  color: orangered;
+}
+
+.main .keyboard .keyboard-panel-control .controls-tools .de-width i {
+  font-size: 1.4rem;
+}
+
+.main .keyboard .key-click-indicator {
+  width: 97.5%;
+  height: 6%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: linear-gradient(
+    to bottom,
+    black,
+    rgb(45, 40, 40) 2%,
+    black
+  );
+  margin-bottom: 0.1rem;
+}
+
+.main .keyboard .key-click-indicator .blink {
+  width: 0.6%;
+  height: 1.2%;
+  border-radius: 100%;
+  position: absolute;
+  background-color: rgba(255, 68, 0, 0.92);
+  box-shadow: 2px 2px 10px orangered;
+  display: none;
+}
+
+.main .keyboard .keys {
+  height: 42%;
+  width: 97.5%;
+  background-color: rgb(30, 30, 30);
+  display: flex;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+}
+
+.main .keyboard .keys .key {
+  width: 2.7%;
+  height: 97%;
+  border: 1px solid gray;
+  background-color: white;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+  box-shadow: 3px 3px 6px -1px rgba(255, 255, 255, 0.548);
+  transition: background-image 0.2s ease-in 0s;
+}
+
+.main .keyboard .keys .key:hover {
+  background-image: linear-gradient(
+    to bottom,
+    white,
+    rgba(209, 200, 200, 0.859)
+  );
+}
+
+.main .keyboard .keys .black-key {
+  position: absolute;
+  width: 1.8%;
+  height: 15%;
+  background-color: black;
+  border: 1px solid black;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+  transition: background-image 0.2s ease-in 0s;
+  box-shadow: 3px 3px 6px -1px black;
+}
+
+.main .keyboard .keys .black-key:hover {
+  background-image: linear-gradient(
+    to bottom,
+    black 10%,
+    rgb(57, 54, 54),
+    rgb(60, 57, 57)
+  );
+}
+
+.main .keyboard .keys .effect {
+  border: none;
+  box-shadow: none;
+}
+
+.main .keyboard .keys .black-key:nth-child(2) {
+  left: calc(100% / 24.5);
+}
+.main .keyboard .keys .black-key:nth-child(4) {
+  left: calc(100% / 15);
+}
+.main .keyboard .keys .black-key:nth-child(7) {
+  left: calc(100% / 8.38);
+}
+.main .keyboard .keys .black-key:nth-child(9) {
+  left: calc(100% / 6.85);
+}
+.main .keyboard .keys .black-key:nth-child(11) {
+  left: calc(100% / 5.8);
+}
+.main .keyboard .keys .black-key:nth-child(14) {
+  left: calc(100% / 4.429);
+}
+.main .keyboard .keys .black-key:nth-child(16) {
+  left: calc(100% / 3.97);
+}
+.main .keyboard .keys .black-key:nth-child(19) {
+  left: calc(100% / 3.28);
+}
+.main .keyboard .keys .black-key:nth-child(21) {
+  left: calc(100% / 3.02);
+}
+.main .keyboard .keys .black-key:nth-child(23) {
+  left: calc(100% / 2.798);
+}
+.main .keyboard .keys .black-key:nth-child(26) {
+  left: calc(100% / 2.438);
+}
+.main .keyboard .keys .black-key:nth-child(28) {
+  left: calc(100% / 2.288);
+}
+.main .keyboard .keys .black-key:nth-child(31) {
+  left: calc(100% / 2.04);
+}
+.main .keyboard .keys .black-key:nth-child(33) {
+  left: calc(100% / 1.938);
+}
+.main .keyboard .keys .black-key:nth-child(35) {
+  left: calc(100% / 1.844);
+}
+.main .keyboard .keys .black-key:nth-child(38) {
+  left: calc(100% / 1.681);
+}
+.main .keyboard .keys .black-key:nth-child(40) {
+  left: calc(100% / 1.607);
+}
+.main .keyboard .keys .black-key:nth-child(43) {
+  left: calc(100% / 1.481);
+}
+.main .keyboard .keys .black-key:nth-child(45) {
+  left: calc(100% / 1.426);
+}
+.main .keyboard .keys .black-key:nth-child(47) {
+  left: calc(100% / 1.373);
+}
+.main .keyboard .keys .black-key:nth-child(50) {
+  left: calc(100% / 1.282);
+}
+.main .keyboard .keys .black-key:nth-child(52) {
+  left: calc(100% / 1.239);
+}
+.main .keyboard .keys .black-key:nth-child(55) {
+  left: calc(100% / 1.163);
+}
+.main .keyboard .keys .black-key:nth-child(57) {
+  left: calc(100% / 1.128);
+}
+.main .keyboard .keys .black-key:nth-child(59) {
+  left: calc(100% / 1.095);
+}
+
+.main .keyboard .key-click-indicator .blink:nth-child(1) {
+  left: calc(100% / 34);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(2) {
+  left: calc(100% / 21.4);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(3) {
+  left: calc(100% / 16.6);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(4) {
+  left: calc(100% / 13.72);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(5) {
+  left: calc(100% / 11.3);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(6) {
+  left: calc(100% / 9.1);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(7) {
+  left: calc(100% / 7.95);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(8) {
+  left: calc(100% / 7.16);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(9) {
+  left: calc(100% / 6.55);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(10) {
+  left: calc(100% / 6);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(11) {
+  left: calc(100% / 5.58);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(12) {
+  left: calc(100% / 5.12);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(13) {
+  left: calc(100% / 4.6);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(14) {
+  left: calc(100% / 4.3);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(15) {
+  left: calc(100% / 4.07);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(16) {
+  left: calc(100% / 3.86);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(17) {
+  left: calc(100% / 3.64);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(18) {
+  left: calc(100% / 3.38);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(19) {
+  left: calc(100% / 3.22);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(20) {
+  left: calc(100% / 3.086);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(21) {
+  left: calc(100% / 2.96);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(22) {
+  left: calc(100% / 2.84);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(23) {
+  left: calc(100% / 2.75);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(24) {
+  left: calc(100% / 2.631);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(25) {
+  left: calc(100% / 2.5);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(26) {
+  left: calc(100% / 2.4);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(27) {
+  left: calc(100% / 2.324);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(28) {
+  left: calc(100% / 2.25);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(29) {
+  left: calc(100% / 2.17);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(30) {
+  left: calc(100% / 2.081);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(31) {
+  left: calc(100% / 2.016);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(32) {
+  left: calc(100% / 1.964);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(33) {
+  left: calc(100% / 1.917);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(34) {
+  left: calc(100% / 1.866);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(35) {
+  left: calc(100% / 1.824);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(36) {
+  left: calc(100% / 1.77);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(37) {
+  left: calc(100% / 1.71);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(38) {
+  left: calc(100% / 1.664);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(39) {
+  left: calc(100% / 1.626);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(40) {
+  left: calc(100% / 1.588);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(41) {
+  left: calc(100% / 1.548);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(42) {
+  left: calc(100% / 1.503);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(43) {
+  left: calc(100% / 1.468);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(44) {
+  left: calc(100% / 1.438);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(45) {
+  left: calc(100% / 1.411);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(46) {
+  left: calc(100% / 1.386);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(47) {
+  left: calc(100% / 1.361);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(48) {
+  left: calc(100% / 1.332);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(49) {
+  left: calc(100% / 1.3);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(50) {
+  left: calc(100% / 1.272);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(51) {
+  left: calc(100% / 1.248);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(52) {
+  left: calc(100% / 1.228);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(53) {
+  left: calc(100% / 1.206);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(54) {
+  left: calc(100% / 1.176);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(55) {
+  left: calc(100% / 1.155);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(56) {
+  left: calc(100% / 1.136);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(57) {
+  left: calc(100% / 1.12);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(58) {
+  left: calc(100% / 1.104);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(59) {
+  left: calc(100% / 1.088);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(60) {
+  left: calc(100% / 1.068);
+}
+.main .keyboard .key-click-indicator .blink:nth-child(61) {
+  left: calc(100% / 1.042);
+}
+
+@media print {
+  body {
+    height: 100%;
+    width: 100%;
+  }
+  .printable {
+    display: inline-block;
+  }
+  .main {
+    display: none;
+  }
+}
