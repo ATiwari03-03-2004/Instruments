@@ -1,65 +1,67 @@
+let isKeyAssistOn = false;
+
 let keyFrequencyMap = {
-  "1": 65.406,
+  1: 65.406,
   "!": 69.296,
-  "2": 73.416,
+  2: 73.416,
   "@": 77.782,
-  "3": 82.407,
-  "4": 87.307,
-  "$": 92.499,
-  "5": 97.999,
+  3: 82.407,
+  4: 87.307,
+  $: 92.499,
+  5: 97.999,
   "%": 103.826,
-  "6": 110.0,
+  6: 110.0,
   "^": 116.541,
-  "7": 123.471,
-  "8": 130.813,
+  7: 123.471,
+  8: 130.813,
   "*": 138.591,
-  "9": 146.832,
+  9: 146.832,
   "(": 155.563,
-  "0": 164.814,
-  "q": 174.614,
-  "Q": 184.997,
-  "w": 195.998,
-  "W": 207.652,
-  "e": 220.0,
-  "E": 233.082,
-  "r": 246.942,
-  "t": 261.626,
-  "T": 277.183,
-  "y": 293.665,
-  "Y": 311.127,
-  "u": 329.628,
-  "i": 349.228,
-  "I": 369.994,
-  "o": 391.995,
-  "O": 415.305,
-  "p": 440.0,
-  "P": 466.164,
-  "a": 493.883,
-  "s": 523.251,
-  "S": 554.365,
-  "d": 587.33,
-  "D": 622.254,
-  "f": 659.255,
-  "g": 698.456,
-  "G": 739.989,
-  "h": 783.991,
-  "H": 830.609,
-  "j": 880.0,
-  "J": 932.328,
-  "k": 987.767,
-  "l": 1046.502,
-  "L": 1108.731,
-  "z": 1174.659,
-  "Z": 1244.508,
-  "x": 1318.51,
-  "c": 1396.913,
-  "C": 1479.978,
-  "v": 1567.982,
-  "V": 1661.219,
-  "b": 1760.0,
-  "B": 1864.655,
-  "n": 1975.533,
-  "m": 2093.005,
+  0: 164.814,
+  q: 174.614,
+  Q: 184.997,
+  w: 195.998,
+  W: 207.652,
+  e: 220.0,
+  E: 233.082,
+  r: 246.942,
+  t: 261.626,
+  T: 277.183,
+  y: 293.665,
+  Y: 311.127,
+  u: 329.628,
+  i: 349.228,
+  I: 369.994,
+  o: 391.995,
+  O: 415.305,
+  p: 440.0,
+  P: 466.164,
+  a: 493.883,
+  s: 523.251,
+  S: 554.365,
+  d: 587.33,
+  D: 622.254,
+  f: 659.255,
+  g: 698.456,
+  G: 739.989,
+  h: 783.991,
+  H: 830.609,
+  j: 880.0,
+  J: 932.328,
+  k: 987.767,
+  l: 1046.502,
+  L: 1108.731,
+  z: 1174.659,
+  Z: 1244.508,
+  x: 1318.51,
+  c: 1396.913,
+  C: 1479.978,
+  v: 1567.982,
+  V: 1661.219,
+  b: 1760.0,
+  B: 1864.655,
+  n: 1975.533,
+  m: 2093.005,
 };
 
 let noteCode = {
@@ -151,6 +153,29 @@ download.addEventListener("click", () => {
   print();
 });
 
+// let features = document.querySelectorAll(
+//   ".main .keyboard .extra-features .feature"
+// );
+// let icons = document.querySelectorAll(
+//   ".main .keyboard .extra-features .feature i"
+// );
+
+// function setDisplay(icon) {
+//   icon.style.opacity = "0";
+// }
+
+// features.forEach((feature) => {
+//   feature.addEventListener("mouseover", () => {
+//     feature.children[0].style.opacity = 1;
+//   });
+// });
+
+// features.forEach((feature) => {
+//   feature.addEventListener("mouseleave", () => {
+//     setDisplay(feature.children[0]);
+//   });
+// });
+
 let editableNotesDIV = document.querySelector(".notes-editor");
 let textNotes = document.querySelector(".notes-editor .notes textarea");
 let save = document.querySelector(".notes-editor .save-btn .save");
@@ -173,6 +198,62 @@ let notesPlayedDiv = document.querySelector(
 let editIcon = document.querySelector(
   ".main .keyboard .keyboard-panel-control .controls-tools .edit-notes"
 );
+
+let whiteKeys = document.querySelectorAll(".main .keyboard .keys .key");
+let blackKeys = document.querySelectorAll(".main .keyboard .keys .black-key");
+let keyAssist = document.querySelector(
+  ".main .keyboard .extra-features .key-assist"
+);
+keyAssist.addEventListener("mouseover", () => {
+  if (!isKeyAssistOn) {
+    keyAssist.children[0].style.opacity = "1";
+    keyAssist.children[1].style.color = "white";
+  }
+});
+keyAssist.addEventListener("mouseleave", () => {
+  if (!isKeyAssistOn) {
+    keyAssist.children[0].style.opacity = "0";
+    keyAssist.children[1].style.color = "gray";
+  }
+});
+keyAssist.addEventListener("click", () => {
+  if (isKeyAssistOn) isKeyAssistOn = false;
+  else isKeyAssistOn = true;
+  if (isKeyAssistOn) {
+    keyAssist.children[0].style.opacity = "1";
+    keyAssist.children[0].style.color = "white";
+    keyAssist.children[1].style.color = "white";
+    console.dir(keyAssist.children[1]);
+    for (whiteKey of whiteKeys) {
+      whiteKey.style.display = "flex";
+      whiteKey.style.justifyContent = "center";
+      whiteKey.style.alignItems = "end";
+      whiteKey.innerHTML = `<span><b>${
+        noteCode[whiteKey.getAttribute("id")].keyBoardCode
+      }</b></span>`;
+    }
+    for (blackKey of blackKeys) {
+      blackKey.style.display = "flex";
+      blackKey.style.justifyContent = "center";
+      blackKey.style.alignItems = "end";
+      blackKey.style.color = "white";
+      let ID = blackKey.getAttribute("id");
+      ID = `${ID[0]}#${ID[ID.length - 1]}/${ID[ID.length - 3]}b${
+        ID[ID.length - 1]
+      }`;
+      blackKey.innerHTML = `<span><b>${noteCode[ID].keyBoardCode}</b></span>`;
+    }
+  } else {
+    keyAssist.children[0].style.opacity = "0";
+    keyAssist.children[1].style.color = "gray";
+    for (whiteKey of whiteKeys) {
+      whiteKey.innerHTML = "";
+    }
+    for (blackKey of blackKeys) {
+      blackKey.innerHTML = "";
+    }
+  }
+});
 
 editIcon.addEventListener("click", () => {
   editableNotesDIV.style.display = "block";
@@ -204,7 +285,7 @@ keysDiv.addEventListener("mouseup", () => {
 let replay = document.querySelector(
   ".main .keyboard .keyboard-panel-control .controls-tools .play-note"
 );
-replay.addEventListener('click', () => {
+replay.addEventListener("click", () => {
   let play = document.querySelector(
     ".main .keyboard .keyboard-panel-control .controls-tools .play-note i.fa-play"
   );
@@ -214,7 +295,9 @@ replay.addEventListener('click', () => {
   play.style.display = "none";
   pause.style.display = "block";
   let IDs = [...textNotes.value];
-  let spans = document.querySelectorAll(".main .keyboard .keyboard-panel-control .notes-played .notes span");
+  let spans = document.querySelectorAll(
+    ".main .keyboard .keyboard-panel-control .notes-played .notes span"
+  );
   for (let i = 0; i < spans.length; i++) {
     setTimeout(() => {
       spans[i].style.color = "rgba(30, 215, 96, 0.7)";
@@ -306,7 +389,13 @@ function createKeySound(frequency) {
   const sustainLevel = 0.5; // maintain same level of sound of 0.5 for a given time
   const releaseTime = 0.5; // seconds
   gainNode.gain.linearRampToValueAtTime(1, now + attackTime);
-  gainNode.gain.linearRampToValueAtTime(sustainLevel, now + attackTime + decayTime);
-  gainNode.gain.linearRampToValueAtTime(0, now + attackTime + decayTime + releaseTime);
+  gainNode.gain.linearRampToValueAtTime(
+    sustainLevel,
+    now + attackTime + decayTime
+  );
+  gainNode.gain.linearRampToValueAtTime(
+    0,
+    now + attackTime + decayTime + releaseTime
+  );
   oscillator.stop(now + attackTime + decayTime + releaseTime + 1);
 }
