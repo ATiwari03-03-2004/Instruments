@@ -1,5 +1,7 @@
 let isKeyAssistOn = false;
 
+let soundType = "sine";
+
 let keyFrequencyMap = {
   1: 65.406,
   "!": 69.296,
@@ -255,6 +257,48 @@ keyAssist.addEventListener("click", () => {
   }
 });
 
+let sounds = document.querySelector(".main .keyboard .extra-features .sounds");
+let soundPanel = document.querySelector(".sound-panel");
+let soundPanelClose = document.querySelector(".sound-panel .close i");
+let soundPanelSine = document.querySelector(".sound-panel form .SINE input");
+let Sine = document.querySelector(".sound-panel form .SINE");
+let soundPanelSquare = document.querySelector(
+  ".sound-panel form .SQUARE input"
+);
+let Square = document.querySelector(".sound-panel form .SQUARE");
+let soundPanelSawtooth = document.querySelector(
+  ".sound-panel form .SAWTOOTH input"
+);
+let Sawtooth = document.querySelector(".sound-panel form .SAWTOOTH");
+sounds.addEventListener("mouseover", () => {
+  sounds.children[0].style.opacity = "1";
+  sounds.children[0].style.width = '1.6rem';
+  sounds.children[1].style.color = "white";
+});
+sounds.addEventListener("mouseleave", () => {
+  sounds.children[0].style.opacity = "0";
+  sounds.children[1].style.color = "gray";
+});
+sounds.addEventListener("click", () => {
+  soundPanel.style.display = "block";
+});
+
+Sine.addEventListener("click", () => {
+  soundType = "sine";
+});
+
+Square.addEventListener("click", () => {
+  soundType = "square";
+});
+
+Sawtooth.addEventListener("click", () => {
+  soundType = "sawtooth";
+});
+
+soundPanelClose.addEventListener("click", () => {
+  soundPanel.style.display = "none";
+});
+
 editIcon.addEventListener("click", () => {
   editableNotesDIV.style.display = "block";
 });
@@ -380,7 +424,7 @@ function createKeySound(frequency) {
   let now = audioContext.currentTime;
   oscillator.connect(gainNode);
   gainNode.connect(audioContext.destination);
-  oscillator.type = "sine";
+  oscillator.type = soundType;
   oscillator.frequency.value = frequency;
   gainNode.gain.setValueAtTime(0, now);
   oscillator.start();

@@ -4,6 +4,82 @@
   padding: 0;
 }
 
+.sound-panel {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 28%;
+  width: 30%;
+  background-color: rgb(38, 38, 38);
+  z-index: 1;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  border: 1px solid black;
+  box-shadow: 16px 16px 25px black;
+  color: white;
+  display: none;
+}
+
+.sound-panel .close {
+  height: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.sound-panel .close h2 {
+  margin-top: 0.44rem;
+  margin-left: 0.44rem;
+}
+
+.sound-panel .close i {
+  color: orangered;
+  margin-top: 0.44rem;
+  margin-right: 0.44rem;
+}
+
+.sound-panel .radioSelect {
+  height: 66%;
+  width: 96%;
+  border-radius: 1rem;
+  border: 1px solid orangered;
+  padding: 0.5rem;
+  background-color: rgba(128, 128, 128, 0.18);
+}
+
+.sound-panel .radioSelect form {
+  height: 100%;
+  width: 100%;
+}
+
+.sound-panel .radioSelect form div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 33.33%;
+  width: 100%;
+  font-size: 1.3rem;
+}
+
+.sound-panel .radioSelect form div label {
+  margin-left: 0.4rem;
+}
+
+.sound-panel .radioSelect form div label:hover {
+  color: orangered;
+}
+
+.sound-panel .radioSelect form div input:checked {
+  accent-color: orangered;
+}
+
+.sound-panel .radioSelect form .SINE input:checked ~ label,
+.sound-panel .radioSelect form .SQUARE input:checked ~ label,
+.sound-panel .radioSelect form .SAWTOOTH input:checked ~ label {
+  color: orangered;
+}
+
 .printable {
   height: 100%;
   width: 100%;
@@ -44,6 +120,7 @@
   flex-direction: column;
   border-radius: 1rem;
   display: none;
+  box-shadow: 16px 16px 25px black;
 }
 
 .notes-editor .cross {
@@ -671,6 +748,9 @@ main .keyboard .extra-features .feature i {
     display: none;
   }
   .notes-editor {
+    display: none !important;
+  }
+  .sound-panel {
     display: none !important;
   }
 }

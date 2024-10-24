@@ -19,6 +19,11 @@
     />
   </head>
   <body>
+    <!-- <div class="learn">
+      <div class="head"></div>
+      <div class="music-sheet"></div>
+      <div class="study"></div>
+    </div> -->
     <div class="printable">
       <div class="head">
         <h1><u>Your Notes</u></h1>
@@ -49,6 +54,28 @@
       </div>
       <div class="save-btn">
         <button class="save">Save</button>
+      </div>
+    </div>
+    <div class="sound-panel">
+      <div class="close">
+        <h2>Select Sound Type</h2>
+        <i class="fa-solid fa-x"></i>
+      </div>
+      <div class="radioSelect">
+        <form action="#">
+          <div class="SINE">
+            <input type="radio" name="sound" id="sine" value="sine" checked />
+            <label for="sine">NORMAL PIANO - Sine Wave</label>
+          </div>
+          <div class="SQUARE">
+            <input type="radio" name="sound" id="square" value="square" />
+            <label for="square">ELECTRICAL PIANO - Square Wave</label>
+          </div>
+          <div class="SAWTOOTH">
+            <input type="radio" name="sound" id="sawtooth" value="sawtooth" />
+            <label for="sawtooth">ORGAN PIANO - Sawtooth Wave</label>
+          </div>
+        </form>
       </div>
     </div>
     <div class="main">
