@@ -299,6 +299,25 @@ soundPanelClose.addEventListener("click", () => {
   soundPanel.style.display = "none";
 });
 
+let learn = document.querySelector(".main .keyboard .extra-features .learn");
+let learnSection = document.querySelector(".learned");
+let returnIcon = document.querySelector(".learned .head .return");
+learn.addEventListener("mouseover", () => {
+  learn.children[0].style.opacity = "1";
+  learn.children[0].style.width = '1.6rem';
+  learn.children[1].style.color = "white";
+});
+learn.addEventListener("mouseleave", () => {
+  learn.children[0].style.opacity = "0";
+  learn.children[1].style.color = "gray";
+});
+learn.addEventListener('click', () => {
+  learnSection.style.display = "block";
+});
+returnIcon.addEventListener("click", () => {
+  learnSection.style.display = "none";
+});
+
 editIcon.addEventListener("click", () => {
   editableNotesDIV.style.display = "block";
 });

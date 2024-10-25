@@ -4,6 +4,98 @@
   padding: 0;
 }
 
+.learned {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background-color: white;
+  overflow-y: auto;
+  display: none;
+}
+
+.learned .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.learned .head .return {
+  position: absolute;
+  top: 0.8%;
+  left: 0.5%;
+  background-color: rgba(128, 128, 128, 0.365);
+  height: 1.8rem;
+  width: 1.8rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.learned .head .return:hover {
+  background-color: rgba(128, 128, 128, 0.664);
+}
+
+.learn-section {
+  padding: 20px;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.learn-section h2 {
+  font-size: 28px;
+  color: #333;
+}
+
+.theory-box {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theory-box h3 {
+  font-size: 22px;
+  color: #4CAF50;
+}
+
+.theory-box p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.theory-box ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+.octave-image {
+  height: 15rem;
+  width: 15rem;
+}
+
+.notes-image {
+  height: 15rem;
+  width: 15rem;
+}
+
+.piano-image {
+  width: 100%;
+  max-width: 600px;
+}
+
+.octave-image, .piano-image, .notes-image {
+  display: block;
+  margin: 15px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .sound-panel {
   position: absolute;
   inset: 0;
@@ -242,6 +334,8 @@
     rgb(45, 40, 40) 2%,
     black
   );
+  border-top: 2px solid rgba(113, 111, 111, 0.422);
+  border-bottom: 2px solid black;
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
   border-right: 1px solid rgba(128, 128, 128, 0.5);
@@ -278,12 +372,14 @@
 .main .keyboard .keyboard-panel-control .notes-played {
   height: 64%;
   width: 50%;
+  border-bottom: 2px solid black;
   background-image: linear-gradient(
     to bottom,
     black,
     rgb(45, 40, 40) 2%,
     black
   );
+  border-top: 2px solid rgba(113, 111, 111, 0.422);
   padding: 0.2rem;
   overflow-y: scroll;
   padding-left: 0.5rem;
@@ -301,8 +397,10 @@
 }
 
 .main .keyboard .keyboard-panel-control .controls-tools {
+  border-top: 2px solid rgba(113, 111, 111, 0.422);
   height: 64%;
   width: 10%;
+  border-bottom: 2px solid black;
   background-image: linear-gradient(
     to bottom,
     black,
