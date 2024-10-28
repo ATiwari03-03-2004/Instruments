@@ -4,6 +4,65 @@
   padding: 0;
 }
 
+i {
+  cursor: pointer;
+}
+
+.record-panel {
+  display: none;
+  width: 24%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-145%);
+  background-color: rgb(38, 38, 38);
+  z-index: 2;
+  border-radius: 1rem;
+  border: 1px solid orangered;
+  box-shadow: 16px 16px 25px black;
+  padding: 0.8rem;
+  font-size: 1.15rem;
+  color: gray;
+}
+
+.record-panel .close {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  color: orangered;
+  font-size: 1.15rem;
+}
+
+.record-panel .text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.record-panel .record-btn {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.record-panel .record-btn button {
+  font-size: 1.15rem;
+  width: 100%;
+  height: 2rem;
+  border-radius: 1rem;
+  border: 2px solid orangered;
+  background-color: rgb(38, 38, 38);
+  color: orangered;
+  text-shadow: 2px 2px 10px orangered;
+}
+
+.record-panel .record-btn button:hover {
+  background-color: orangered;
+  color: black;
+}
+
 .learned {
   position: absolute;
   inset: 0;
@@ -282,6 +341,7 @@
   border: 2px solid orangered;
   color: orangered;
   font-size: 1.14rem;
+  text-shadow: 2px 2px 10px orangered;
 }
 
 .notes-editor .save-btn button:hover {
@@ -458,6 +518,7 @@
   justify-content: center;
   width: 25%;
   height: 100%;
+  cursor: pointer;
 }
 
 .main .keyboard .extra-features .feature i {
@@ -472,6 +533,30 @@
   align-items: center;
 }
 
+.main .keyboard .extra-features .recording div {
+  height: 0.88rem;
+  width: 0.88rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 100%;
+  margin-right: 0.25rem;
+  opacity: 0;
+}
+
+.main .keyboard .extra-features .recording div i {
+  height: 1rem;
+  width: 1rem;
+  opacity: 1;
+  height: 80%;
+  width: 80%;
+  font-size: 0.7rem;
+  border-radius: 100%;
+  margin: 0;
+  color: white;
+}
+
 .main .keyboard .extra-features .feature:hover,
 main .keyboard .extra-features .feature h2 {
   color: white;
@@ -482,6 +567,14 @@ main .keyboard .extra-features .feature i {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.main .keyboard .extra-features .sounds i {
+  width: 1.6rem;
+}
+
+.main .keyboard .extra-features .learn i {
+  width: 1.6rem;
 }
 
 .main .keyboard .key-click-indicator {
@@ -519,6 +612,7 @@ main .keyboard .extra-features .feature i {
   border-bottom-right-radius: 0.6rem;
   border-top-left-radius: 0.2rem;
   border-top-right-radius: 0.2rem;
+  cursor: pointer;
 }
 
 .main .keyboard .keys div {

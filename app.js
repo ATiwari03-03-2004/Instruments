@@ -1,4 +1,7 @@
 let isKeyAssistOn = false;
+let isRecordClicked = false;
+let isRecording = false;
+let permitRecording = false;
 
 let soundType = "sine";
 
@@ -155,29 +158,6 @@ download.addEventListener("click", () => {
   print();
 });
 
-// let features = document.querySelectorAll(
-//   ".main .keyboard .extra-features .feature"
-// );
-// let icons = document.querySelectorAll(
-//   ".main .keyboard .extra-features .feature i"
-// );
-
-// function setDisplay(icon) {
-//   icon.style.opacity = "0";
-// }
-
-// features.forEach((feature) => {
-//   feature.addEventListener("mouseover", () => {
-//     feature.children[0].style.opacity = 1;
-//   });
-// });
-
-// features.forEach((feature) => {
-//   feature.addEventListener("mouseleave", () => {
-//     setDisplay(feature.children[0]);
-//   });
-// });
-
 let editableNotesDIV = document.querySelector(".notes-editor");
 let textNotes = document.querySelector(".notes-editor .notes textarea");
 let save = document.querySelector(".notes-editor .save-btn .save");
@@ -272,7 +252,6 @@ let soundPanelSawtooth = document.querySelector(
 let Sawtooth = document.querySelector(".sound-panel form .SAWTOOTH");
 sounds.addEventListener("mouseover", () => {
   sounds.children[0].style.opacity = "1";
-  sounds.children[0].style.width = '1.6rem';
   sounds.children[1].style.color = "white";
 });
 sounds.addEventListener("mouseleave", () => {
@@ -304,7 +283,6 @@ let learnSection = document.querySelector(".learned");
 let returnIcon = document.querySelector(".learned .head .return");
 learn.addEventListener("mouseover", () => {
   learn.children[0].style.opacity = "1";
-  learn.children[0].style.width = '1.6rem';
   learn.children[1].style.color = "white";
 });
 learn.addEventListener("mouseleave", () => {
@@ -365,7 +343,8 @@ replay.addEventListener("click", () => {
     setTimeout(() => {
       spans[i].style.color = "rgba(30, 215, 96, 0.7)";
       spans[i].style.backgroundColor = "rgba(0, 0, 255, 0.3)";
-      createKeySound(keyFrequencyMap[IDs[i]]);
+      if (permitRecording) soundAndRecording(keyFrequencyMap[IDs[i]], "record");
+      else soundAndRecording(keyFrequencyMap[IDs[i]]);
       setTimeout(() => {
         spans[i].style.backgroundColor = "transparent";
       }, 500);
@@ -408,7 +387,8 @@ function displayNote(ID) {
   notesPlayedDiv.innerHTML = `${notesPlayedDiv.innerHTML}<span>${code} </span>`; // span
   textNotes.value = `${textNotes.value}${code}`;
   printableNote.innerHTML = `${notesPlayedDiv.innerHTML}${code} `;
-  createKeySound(frequency);
+  if (permitRecording) soundAndRecording(frequency, "record");
+  else soundAndRecording(frequency);
 }
 
 function blinkEffect(note) {
@@ -436,29 +416,111 @@ keys.forEach((note) => {
   });
 });
 
-function createKeySound(frequency) {
-  let audioContext = new AudioContext();
-  let oscillator = audioContext.createOscillator();
-  let gainNode = audioContext.createGain();
-  let now = audioContext.currentTime;
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  oscillator.type = soundType;
-  oscillator.frequency.value = frequency;
-  gainNode.gain.setValueAtTime(0, now);
-  oscillator.start();
+const AUDIO_CONTEXT = new AudioContext();
+const DESTINATION = AUDIO_CONTEXT.createMediaStreamDestination();
+const MEDIA_RECORDER = new MediaRecorder(DESTINATION.stream);
+
+function soundAndRecording(frequency, task = "sound") {
+  const OSCILLATOR = AUDIO_CONTEXT.createOscillator();
+  const GAIN_NODE = AUDIO_CONTEXT.createGain();
+  OSCILLATOR.connect(GAIN_NODE);
+  GAIN_NODE.connect(AUDIO_CONTEXT.destination);
+  let now = AUDIO_CONTEXT.currentTime;
+  OSCILLATOR.type = soundType;
+  OSCILLATOR.frequency.value = frequency;
+  GAIN_NODE.gain.setValueAtTime(0, now);
+  OSCILLATOR.start();
   const attackTime = 0.1; // seconds
   const decayTime = 0.3; // seconds
   const sustainLevel = 0.5; // maintain same level of sound of 0.5 for a given time
   const releaseTime = 0.5; // seconds
-  gainNode.gain.linearRampToValueAtTime(1, now + attackTime);
-  gainNode.gain.linearRampToValueAtTime(
+  GAIN_NODE.gain.linearRampToValueAtTime(1, now + attackTime);
+  GAIN_NODE.gain.linearRampToValueAtTime(
     sustainLevel,
     now + attackTime + decayTime
   );
-  gainNode.gain.linearRampToValueAtTime(
+  GAIN_NODE.gain.linearRampToValueAtTime(
     0,
     now + attackTime + decayTime + releaseTime
   );
-  oscillator.stop(now + attackTime + decayTime + releaseTime + 1);
+  OSCILLATOR.stop(now + attackTime + decayTime + releaseTime + 1);
+  if (task === "record" && !isRecording) {
+    isRecording = true;
+    GAIN_NODE.connect(DESTINATION);
+    MEDIA_RECORDER.start();
+    setTimeout(() => {
+      if (isRecording) {
+        MEDIA_RECORDER.stop();
+        isRecording = false;
+        resetRecordButton();
+        alert("Maximum supported recording duration is 1 minute i.e. 60 seconds");
+      }
+    }, 60000);
+  }
+}
+
+let record = document.querySelector(".main .extra-features .recording");
+let recordPanel = document.querySelector(".record-panel");
+let recordClose = document.querySelector(".record-panel .close")
+let startRecord = document.querySelector(".record-panel .record-btn");
+record.addEventListener('mouseover', () => {
+  if (!isRecordClicked) {
+    record.children[0].style.opacity = "1";
+    record.children[1].style.color = "white";
+  }
+});
+record.addEventListener('mouseleave', () => {
+  if (!isRecordClicked) {
+    record.children[0].style.opacity = "0";
+    record.children[1].style.color = "gray";
+  }
+});
+record.addEventListener("click", () => {
+  if (isRecording) {
+    MEDIA_RECORDER.stop();
+    isRecording = false;
+    resetRecordButton();
+  } else {
+    if (!isRecordClicked) {
+      isRecordClicked = true;
+      record.children[0].style.opacity = "1";
+      record.children[0].style.color = "white";
+      record.children[1].style.color = "white";
+      recordPanel.style.display = "block";
+    } else {
+      isRecordClicked = false;
+      record.children[0].style.opacity = "0";
+      record.children[0].style.color = "gray";
+      record.children[1].style.color = "gray";
+      recordPanel.style.display = "none";
+    }
+  }
+});
+recordClose.addEventListener('click', () => {
+  isRecordClicked = false;
+  record.children[0].style.opacity = "0";
+  record.children[1].style.color = "gray";
+  recordPanel.style.display = "none";
+});
+
+startRecord.addEventListener('click', () => {
+  record.children[0].style.border = "1px solid red";
+  record.children[0].children[0].style.color = "red";
+  record.children[1].style.color = "red";
+  record.children[1].innerText = "Stop";
+  recordPanel.style.display = "none";
+  permitRecording = true;
+})
+
+function resetRecordButton() {
+  record.children[0].style.border = "1px solid white";
+  record.children[0].children[0].style.color = "white";
+  record.children[1].style.color = "white";
+  record.children[1].innerText = "Record";
+  recordPanel.style.display = "block";
+}
+
+MEDIA_RECORDER.ondataavailable = function(e) {
+  console.log("recording done");
+  console.log(e.data);
 }
