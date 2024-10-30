@@ -3,6 +3,9 @@ let isRecordClicked = false;
 let isRecording = false;
 let permitRecording = false;
 
+let recordingCount = 0;
+let isRecordAudioBtnAdded = false;
+
 let soundType = "sine";
 
 let keyFrequencyMap = {
@@ -289,7 +292,7 @@ learn.addEventListener("mouseleave", () => {
   learn.children[0].style.opacity = "0";
   learn.children[1].style.color = "gray";
 });
-learn.addEventListener('click', () => {
+learn.addEventListener("click", () => {
   learnSection.style.display = "block";
 });
 returnIcon.addEventListener("click", () => {
@@ -451,34 +454,46 @@ function soundAndRecording(frequency, task = "sound") {
     setTimeout(() => {
       if (isRecording) {
         MEDIA_RECORDER.stop();
+        recordingCount++;
         isRecording = false;
+        permitRecording = false;
         resetRecordButton();
-        alert("Maximum supported recording duration is 1 minute i.e. 60 seconds");
+        alert(
+          "Maximum supported recording duration is 1 minute i.e. 60 seconds"
+        );
       }
     }, 60000);
+  } else if (task === "record") {
+    GAIN_NODE.connect(DESTINATION);
   }
 }
 
 let record = document.querySelector(".main .extra-features .recording");
 let recordPanel = document.querySelector(".record-panel");
-let recordClose = document.querySelector(".record-panel .close")
+let recordClose = document.querySelector(".record-panel .close");
 let startRecord = document.querySelector(".record-panel .record-btn");
-record.addEventListener('mouseover', () => {
+record.addEventListener("mouseover", () => {
   if (!isRecordClicked) {
     record.children[0].style.opacity = "1";
     record.children[1].style.color = "white";
   }
 });
-record.addEventListener('mouseleave', () => {
+record.addEventListener("mouseleave", () => {
   if (!isRecordClicked) {
     record.children[0].style.opacity = "0";
     record.children[1].style.color = "gray";
   }
 });
 record.addEventListener("click", () => {
+  if (permitRecording && !isRecording) {
+    permitRecording = false;
+    resetRecordButton();
+  }
   if (isRecording) {
     MEDIA_RECORDER.stop();
+    recordingCount++;
     isRecording = false;
+    permitRecording = false;
     resetRecordButton();
   } else {
     if (!isRecordClicked) {
@@ -496,21 +511,27 @@ record.addEventListener("click", () => {
     }
   }
 });
-recordClose.addEventListener('click', () => {
+recordClose.addEventListener("click", () => {
   isRecordClicked = false;
   record.children[0].style.opacity = "0";
   record.children[1].style.color = "gray";
   recordPanel.style.display = "none";
 });
 
-startRecord.addEventListener('click', () => {
-  record.children[0].style.border = "1px solid red";
-  record.children[0].children[0].style.color = "red";
-  record.children[1].style.color = "red";
-  record.children[1].innerText = "Stop";
-  recordPanel.style.display = "none";
-  permitRecording = true;
-})
+startRecord.addEventListener("click", () => {
+  if (recordingCount >= 5) {
+    alert(
+      "At most 5 recordings are only allowed, Please Download/Delete already recorded audio files to continue!"
+    );
+  } else {
+    permitRecording = true;
+    record.children[0].style.border = "1px solid red";
+    record.children[0].children[0].style.color = "red";
+    record.children[1].style.color = "red";
+    record.children[1].innerText = "Stop";
+    recordPanel.style.display = "none";
+  }
+});
 
 function resetRecordButton() {
   record.children[0].style.border = "1px solid white";
@@ -518,9 +539,134 @@ function resetRecordButton() {
   record.children[1].style.color = "white";
   record.children[1].innerText = "Record";
   recordPanel.style.display = "block";
+  addRecordingAudioBtn();
 }
 
-MEDIA_RECORDER.ondataavailable = function(e) {
-  console.log("recording done");
-  console.log(e.data);
+let audio = document.querySelector(".record-audio");
+let audioClose = document.querySelector(".record-audio .container .close");
+audioClose.addEventListener("click", () => {
+  audio.style.display = "none";
+});
+let audioSection = document.querySelector(".record-audio .container .audio");
+
+MEDIA_RECORDER.ondataavailable = function (e) {
+  let source = null;
+  const audioContainer = document.createElement("div");
+  audioContainer.style.display = "flex";
+  audioContainer.style.justifyContent = "space-evenly";
+  audioContainer.style.alignItems = "center";
+  audioContainer.style.height = "15%";
+  audioContainer.style.width = "100%";
+  const audioElement = document.createElement("audio");
+  const audioURL = URL.createObjectURL(e.data);
+  audioElement.controls = true;
+  audioElement.src = audioURL;
+  audioElement.style.height = "100%";
+  audioElement.style.width = "80%";
+  audioElement.classList.add("audioElement");
+  audioElement.addEventListener("play", () => {
+    const ANALYSER = AUDIO_CONTEXT.createAnalyser();
+    ANALYSER.fftSize = 2048;
+    if (source == null) {
+      source = AUDIO_CONTEXT.createMediaElementSource(audioElement);
+    }
+    source.connect(ANALYSER);
+    ANALYSER.connect(AUDIO_CONTEXT.destination);
+    visualize(ANALYSER);
+  });
+  audioElement.addEventListener("ended", () => {
+    source.disconnect();
+  });
+  audioContainer.appendChild(audioElement);
+  const download = document.createElement("div");
+  download.style.backgroundColor = "orangered";
+  download.style.display = "flex";
+  download.style.justifyContent = "center";
+  download.style.alignItems = "center";
+  download.style.height = "100%";
+  download.style.width = "5%";
+  download.style.borderRadius = "50%";
+  download.innerHTML = '<i class="fa-solid fa-download"></i>';
+  download.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = audioURL;
+    const name = prompt("Name your download audio:");
+    a.download = name;
+    a.click();
+  });
+  audioContainer.appendChild(download);
+  const trashBox = document.createElement("div");
+  trashBox.style.backgroundColor = "orangered";
+  trashBox.style.display = "flex";
+  trashBox.style.justifyContent = "center";
+  trashBox.style.alignItems = "center";
+  trashBox.style.height = "100%";
+  trashBox.style.width = "5%";
+  trashBox.style.borderRadius = "50%";
+  trashBox.innerHTML = '<i class="fa-solid fa-trash"></i>';
+  trashBox.addEventListener("click", () => {
+    audioContainer.remove();
+    recordingCount--;
+  });
+  audioContainer.appendChild(trashBox);
+  audioSection.appendChild(audioContainer);
+};
+
+function addRecordingAudioBtn() {
+  if (recordingCount >= 1 && !isRecordAudioBtnAdded) {
+    isRecordAudioBtnAdded = true;
+    let button = document.createElement("button");
+    button.classList.add("redirect-record-audio-btn");
+    button.innerText = "Check Recordings";
+    button.style.marginTop = "0.5rem";
+    button.style.marginBottom = "0.5rem";
+    button.style.fontSize = "1.15rem";
+    button.style.width = "100%";
+    button.style.height = "2rem";
+    button.style.borderRadius = "1rem";
+    button.style.border = "2px solid orangered";
+    button.style.backgroundColor = "rgb(38, 38, 38)";
+    button.style.color = "orangered";
+    button.style.textShadow = "2px 2px 10px orangered";
+    button.addEventListener("mouseover", () => {
+      button.style.backgroundColor = "orangered";
+      button.style.color = "black";
+    });
+    button.addEventListener("mouseleave", () => {
+      button.style.backgroundColor = "rgb(38, 38, 38)";
+      button.style.color = "orangered";
+    });
+    button.addEventListener("click", () => {
+      audio.style.display = "block";
+      isRecordClicked = false;
+      record.children[0].style.opacity = "0";
+      record.children[1].style.color = "gray";
+      recordPanel.style.display = "none";
+    });
+    recordPanel.appendChild(button);
+  } else if (recordingCount == 0 && isRecordAudioBtnAdded) {
+    recordPanel.children[1].remove();
+  }
+}
+
+function visualize(ANALYSER) {
+  const graph = document.querySelector("canvas");
+  const graphContext = graph.getContext("2d");
+  const audioFreqAnalysisLength = ANALYSER.frequencyBinCount;
+  let audioFreqArray = new Uint8Array(audioFreqAnalysisLength);
+  function draw() {
+    requestAnimationFrame(draw);
+    ANALYSER.getByteFrequencyData(audioFreqArray);
+    graphContext.clearRect(0, 0, graph.width, graph.height);
+    const barWidth = (graph.width / audioFreqAnalysisLength) * 6;
+    let x = 0;
+    for (let i = 0; i < audioFreqAnalysisLength; i++) {
+      if (audioFreqArray[i] === 0) continue;
+      const barHeight = audioFreqArray[i];
+      graphContext.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
+      graphContext.fillRect(x, graph.height - barHeight, barWidth, barHeight);
+      x += barWidth;
+    }
+  }
+  draw();
 }

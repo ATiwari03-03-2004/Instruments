@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=de-width, ial-scale=1.0" />
     <title>Piano</title>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -17,14 +16,29 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=music_note"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
+    <div class="record-audio">
+      <div class="container">
+        <div class="close">
+          <i class="fa-solid fa-x"></i>
+        </div>
+        <div class="visualizer">
+          <canvas id="graph"></canvas>
+        </div>
+        <div class="audio"></div>
+      </div>
+    </div>
     <div class="record-panel">
       <div class="close">
         <i class="fa-solid fa-x"></i>
       </div>
       <div class="text">
-        <p>"Record your musical creation! You can capture up to 60 seconds (1 minute) of audio."</p>
+        <p>
+          "Record your musical creation! You can capture up to 60 seconds (1
+          minute) of audio."
+        </p>
       </div>
       <div class="record-btn">
         <button>Record Audio</button>

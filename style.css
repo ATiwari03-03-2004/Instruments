@@ -4,8 +4,68 @@
   padding: 0;
 }
 
+.audioElement::-webkit-media-controls-panel {
+  background-color: orangered;
+}
+
 i {
   cursor: pointer;
+}
+
+#graph {
+  height: 100%;
+  width: 100%;
+}
+
+.record-audio {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 66%;
+  width: 66%;
+  background-color: rgb(38, 38, 38);
+  z-index: 2;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+  box-shadow: 16px 16px 26px black;
+  display: none;
+}
+
+.record-audio .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.record-audio .container .close {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  color: orangered;
+  font-size: 1.15rem;
+  margin-bottom: 0.8rem;
+}
+
+.record-audio .container .visualizer {
+  width: 100%;
+  height: 30%;
+  background-color: black;
+  border-radius: 0.5rem;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.record-audio .container .audio {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .record-panel {
