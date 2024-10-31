@@ -670,3 +670,11 @@ function visualize(ANALYSER) {
   }
   draw();
 }
+
+document.addEventListener('keydown', (e) => {
+  if (keyFrequencyMap[e.key] != null) {
+    const frequency = keyFrequencyMap[e.key];
+    if (permitRecording) soundAndRecording(frequency, "record");
+    else soundAndRecording(frequency);
+  }
+});
