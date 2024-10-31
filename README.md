@@ -1,20 +1,20 @@
 # Piano
 
--> A real time Virtual Piano Simulator with different features ranging from playing piano, to recording, and more... 
+**A real-time Virtual Piano Simulator packed with features to play, record, and more.**
 
--> Features:- 
+## Features
 
-  i. Ability to play the piano with mouse or keyboard or both.<br> 
-  ii. Ability to change sound type of piano and keyassist feature, to assist playing while using keyboard.<br> 
-  iii. Provided Learn option to allow learning of theoretical concepts related to piano.<br>
-  iv. Provided Replay feature, so that the played notes can be replayed and also downloaded in printable pdf formats and simultaneously edit the played notes if needed.<br> 
-  v. To improve the analysis of notes, added record feature of maximum 60 seconds and further visualizaztion of recording by bar graph to get insight, also the feature to download the recording. 
+1. **Play Options**: Use either the mouse or keyboard (or both) to play the piano.
+2. **Sound Customization**: Change piano sound types and activate Key Assist for smoother play with the keyboard.
+3. **Learning Mode**: Explore theoretical concepts related to piano playing.
+4. **Replay and Download**: Replay played notes, download them in a printable PDF format, and edit the notes if needed.
+5. **Recording and Visualization**: Record up to 60 seconds of play with the recording visualized via a bar graph. Recordings are also downloadable.
 
--> What's Used:- 
+## Technologies Used
 
-  i. Web Audio API -<br> 
-     AudioContext - To produce different piano notes sounds.<br> 
-     Analyser in conjunction with 2D canvas - To generate bar graph visualizer of the recording.<br> 
-     
-  ii. Media Recorder API - To Record the playing of keyboard. 
-  
+1. **Web Audio API**  
+   - **AudioContext**: Produces piano sounds with varied tones.
+   - **Analyser with 2D Canvas**: Generates a bar graph visualization of the recording.
+
+2. **Media Recorder API**  
+   - Used to record played notes.
